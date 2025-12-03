@@ -32,13 +32,18 @@
             justify-content: center;
             margin: 60px 0 40px 0;
             padding: 0 20px;
+            height: 300px;
         }
 
-        .title-text {
-            font-family: 'Fontdiner Swanky', serif;
-            font-size: 72px;
-            color: #d9f5f0;
-            text-shadow: 0 0 20px #88bbb2, 0 0 40px #0077b6;
+        #title-canvas {
+            width: 100%;
+            max-width: 600px;
+            height: 300px;
+            cursor: grab;
+        }
+
+        #title-canvas:active {
+            cursor: grabbing;
         }
 
         /* Content Container */
@@ -183,14 +188,14 @@
             color: #e8b946;
         }
 
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .title-text {
-                font-size: 48px;
+       /* Responsive Design */
+       @media (max-width: 768px) {
+            .title-container {
+            height: 200px;
             }
-
-            .post-title {
-                font-size: 28px;
+    
+            #title-canvas {
+            height: 200px;
             }
 
             .back-to-top {
@@ -209,7 +214,7 @@
 <body>
     <!-- Title -->
     <div class="title-container">
-        <h1 class="title-text">Moonbeam</h1>
+        <canvas id="title-canvas"></canvas>
     </div>
 
     <!-- Devlog Posts -->
@@ -240,7 +245,6 @@
                 </div>
                 <button class="read-more-btn" onclick="togglePost('post-2-content', this)">Read More</button>
         </div>
-
 
         <div class="devlog-post">
             <div class="post-header">
@@ -274,8 +278,140 @@
         <div class="back-to-top-arrow">⮝</div>
     </div>
 
+    <!-- Three.js and GLTFLoader -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+    
     <script>
-        // Post expansion functionality
+        // Three.js Title Setup
+        const titleCanvas = document.getElementById('title-canvas');
+        const titleScene = new THREE.Scene();
+        const titleCamera = new THREE.PerspectiveCamera(45, titleCanvas.clientWidth / titleCanvas.clientHeight, 0.1, 1000);
+        const titleRenderer = new THREE.WebGLRenderer({ canvas: titleCanvas, alpha: true, antialias: true });
+        
+        titleRenderer.setSize(titleCanvas.clientWidth, titleCanvas.clientHeight);
+        titleRenderer.setClearColor(0x000000, 0);
+        
+        // Lighting
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
+        titleScene.add(ambientLight);
+        
+        const pointLight1 = new THREE.PointLight(0x88bbb2, 1, 100);
+        pointLight1.position.set(5, 5, 5);
+        titleScene.add(pointLight1);
+        
+        const pointLight2 = new THREE.PointLight(0x0077b6, 0.8, 100);
+        pointLight2.position.set(-5, 3, 5);
+        titleScene.add(pointLight2);
+        
+        titleCamera.position.z = 5;
+        titleCamera.position.y = 0;
+        
+        // Load GLB model
+        const loader = new THREE.GLTFLoader();
+        let titleModel = null;
+        let targetRotationY = 0;
+        let currentRotationY = 0;
+        const maxRotation = Math.PI / 4; // 45 degrees
+        
+        loader.load(
+            'models/MoonbeamLogo.glb',
+            function (gltf) {
+                titleModel = gltf.scene;
+                titleScene.add(titleModel);
+                
+                const box = new THREE.Box3().setFromObject(titleModel);
+                const center = box.getCenter(new THREE.Vector3());
+                titleModel.position.sub(center);
+                
+                // titleModel.scale.set(1, 1, 1);
+            },
+            function (xhr) {
+                console.log((xhr.loaded / xhr.total * 100) + '% loaded');
+            },
+            function (error) {
+                console.error('Error loading model:', error);
+            }
+        );
+        
+        // Mouse interaction
+        let isDraggingTitle = false;
+        let previousMouseX = 0;
+        
+        titleCanvas.addEventListener('mousedown', (e) => {
+            isDraggingTitle = true;
+            previousMouseX = e.clientX;
+        });
+        
+        titleCanvas.addEventListener('mousemove', (e) => {
+            if (isDraggingTitle && titleModel) {
+                const deltaX = e.clientX - previousMouseX;
+                targetRotationY += deltaX * 0.01;
+                // Clamp rotation to +/- 45 degrees
+                targetRotationY = Math.max(-maxRotation, Math.min(maxRotation, targetRotationY));
+                previousMouseX = e.clientX;
+            }
+        });
+        
+        titleCanvas.addEventListener('mouseup', () => {
+            isDraggingTitle = false;
+        });
+        
+        titleCanvas.addEventListener('mouseleave', () => {
+            isDraggingTitle = false;
+        });
+        
+        // Touch support
+        let previousTouchX = 0;
+        
+        titleCanvas.addEventListener('touchstart', (e) => {
+            isDraggingTitle = true;
+            previousTouchX = e.touches[0].clientX;
+        });
+        
+        titleCanvas.addEventListener('touchmove', (e) => {
+            if (isDraggingTitle && titleModel) {
+                const deltaX = e.touches[0].clientX - previousTouchX;
+                targetRotationY += deltaX * 0.01;
+                targetRotationY = Math.max(-maxRotation, Math.min(maxRotation, targetRotationY));
+                previousTouchX = e.touches[0].clientX;
+            }
+        });
+        
+        titleCanvas.addEventListener('touchend', () => {
+            isDraggingTitle = false;
+        });
+        
+        // Animation loop
+        function animateTitle() {
+            requestAnimationFrame(animateTitle);
+            
+            if (titleModel) {
+                // Smooth rotation interpolation
+                currentRotationY += (targetRotationY - currentRotationY) * 0.1;
+                titleModel.rotation.y = currentRotationY;
+                
+                // Gentle float animation when not dragging
+                if (!isDraggingTitle) {
+                    titleModel.position.y = Math.sin(Date.now() * 0.0005) * 0.1;
+                }
+            }
+            
+            titleRenderer.render(titleScene, titleCamera);
+        }
+        
+        animateTitle();
+        
+        // Handle resize for title
+        window.addEventListener('resize', () => {
+            const width = titleCanvas.clientWidth;
+            const height = titleCanvas.clientHeight;
+            titleCamera.aspect = width / height;
+            titleCamera.updateProjectionMatrix();
+            titleRenderer.setSize(width, height);
+        });
+        
+        // Post expansion
         function togglePost(contentId, button) {
             const content = document.getElementById(contentId);
             const isTruncated = content.classList.contains('truncated');
@@ -289,7 +425,7 @@
             }
         }
         
-        // Smooth scroll to top
+        // Scroll to top
         function scrollToTop() {
             window.scrollTo({
                 top: 0,
