@@ -188,7 +188,7 @@
             color: #e8b946;
         }
 
-       /* Responsive Design */
+       /* Media Queries */
        @media (max-width: 768px) {
             .title-container {
             height: 200px;
@@ -212,12 +212,11 @@
     </style>
 </head>
 <body>
-    <!-- Title -->
+    
     <div class="title-container">
         <canvas id="title-canvas"></canvas>
     </div>
 
-    <!-- Devlog Posts -->
     <div class="content-wrapper">
         <div class="devlog-post">
             <div class="post-header">
@@ -268,14 +267,11 @@
         </div>
     </div>
 
-    <!-- Footer -->
     <div class="footer">
         2025 Team Moonbeam
     </div>
-
-    <!-- Back to Top Button -->
-    <div class="back-to-top" onclick="scrollToTop()">
-        <div class="back-to-top-arrow">⮝</div>
+ <div class="back-to-top" onclick="scrollToTop()">
+        <div class="back-to-top-arrow">↑</div>
     </div>
 
     <!-- Three.js and GLTFLoader -->
@@ -283,7 +279,6 @@
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
     
     <script>
-        // Three.js Title Setup
         const titleCanvas = document.getElementById('title-canvas');
         const titleScene = new THREE.Scene();
         const titleCamera = new THREE.PerspectiveCamera(45, titleCanvas.clientWidth / titleCanvas.clientHeight, 0.1, 1000);
@@ -293,26 +288,30 @@
         titleRenderer.setClearColor(0x000000, 0);
         
         // Lighting
-        const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
+        const ambientLight = new THREE.AmbientLight(0xffffff, 1.5);
         titleScene.add(ambientLight);
         
-        const pointLight1 = new THREE.PointLight(0x88bbb2, 1, 100);
-        pointLight1.position.set(5, 5, 5);
-        titleScene.add(pointLight1);
+        const mainLight = new THREE.DirectionalLight(0xffffff, 1.2);
+        mainLight.position.set(5, 5, 5);
+        titleScene.add(mainLight);
         
-        const pointLight2 = new THREE.PointLight(0x0077b6, 0.8, 100);
-        pointLight2.position.set(-5, 3, 5);
-        titleScene.add(pointLight2);
+        const fillLight = new THREE.DirectionalLight(0x88bbb2, 0.8);
+        fillLight.position.set(-5, 3, 5);
+        titleScene.add(fillLight);
+        
+        const backLight = new THREE.DirectionalLight(0x0077b6, 0.6);
+        backLight.position.set(0, -3, -5);
+        titleScene.add(backLight);
         
         titleCamera.position.z = 5;
         titleCamera.position.y = 0;
         
-        // Load GLB model
+        // Load GLB
         const loader = new THREE.GLTFLoader();
         let titleModel = null;
         let targetRotationY = 0;
         let currentRotationY = 0;
-        const maxRotation = Math.PI / 4; // 45 degrees
+        const maxRotation = Math.PI / 18; // 10 degrees
         
         loader.load(
             'models/MoonbeamLogo.glb',
@@ -320,11 +319,12 @@
                 titleModel = gltf.scene;
                 titleScene.add(titleModel);
                 
+                // Center and scale
                 const box = new THREE.Box3().setFromObject(titleModel);
                 const center = box.getCenter(new THREE.Vector3());
                 titleModel.position.sub(center);
                 
-                // titleModel.scale.set(1, 1, 1);
+            titleModel.scale.set(1, 1, 1);
             },
             function (xhr) {
                 console.log((xhr.loaded / xhr.total * 100) + '% loaded');
@@ -361,7 +361,7 @@
             isDraggingTitle = false;
         });
         
-        // Touch support
+        // Touch support for title
         let previousTouchX = 0;
         
         titleCanvas.addEventListener('touchstart', (e) => {
@@ -402,7 +402,7 @@
         
         animateTitle();
         
-        // Handle resize for title
+        // Resize for title
         window.addEventListener('resize', () => {
             const width = titleCanvas.clientWidth;
             const height = titleCanvas.clientHeight;
