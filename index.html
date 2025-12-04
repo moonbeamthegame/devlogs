@@ -36,7 +36,7 @@
 
         #title-canvas {
             width: 100%;
-            max-width: 800px;
+            max-width: 900px;
             height: 500px;
             cursor: grab;
         }
@@ -283,9 +283,10 @@
  <div class="back-to-top" onclick="scrollToTop()">
         <div class="back-to-top-arrow">↑</div>
     </div>
-
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/RGBELoader.js"></script>
     
     <script>
         
@@ -316,6 +317,25 @@
         
         titleCamera.position.z = 5;
         titleCamera.position.y = 0;
+
+        // HDRI attempt
+        const pmremGenerator = new THREE.PMREMGenerator(titleRenderer);
+        pmremGenerator.compileEquirectangularShader();
+
+        const rgbeLoader = new THREE.RGBELoader();
+        rgbeLoader.load(
+       'img/forest.exr',
+        function(texture) {
+        const envMap = pmremGenerator.fromEquirectangular(texture).texture;
+        titleScene.environment = envMap;
+        texture.dispose();
+        pmremGenerator.dispose();
+        },
+        undefined,
+        function(error) {
+        console.error('Error loading HDRI:', error);
+    }
+);
         
         // Load GLB model
         const loader = new THREE.GLTFLoader();
