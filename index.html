@@ -163,7 +163,6 @@
         .back-to-top-arrow {
             font-size: 32px;
             color: #d9f5f0;
-            line-height: 0.8;
         }
 
         /* Footer */
@@ -203,6 +202,10 @@
                 height: 50px;
             }
 
+            body {
+            background: url('img/mobilebkg.png') no-repeat center center / contain;
+            }
+
             .back-to-top-arrow {
                 font-size: 24px;
             }
@@ -226,7 +229,7 @@
                 <p>And S is for Stardust!!!</p>
                 <p style="margin-top: 15px;">
                     I made that whole last post about 3D art without even getting into the game itself! I've been having a ton of fun modeling this scene (intended as a promo) using a little bit of everything I've been teaching myself. We've got some fun procedural stuff like the pile of capsules at the bottom of the crane machine and the gloopy liquid in the pipes, some done-by-hand animations like Laika’s front paw moving as well as the crane arm hitting the capsule, animating textures moving on the ringed planet, animating emissions/lights on and off, generating noise on the F curve to make Laika bark, a simple bone rig for her wagging antenna... and I even challenged myself to make a slinky and a rolled up scroll of paper!  
-                    <br />
+                    <br /><br />
                     This has been a fun learning experience, but I mainly wanted to start modeling so that Moonbeam has a hybrid 2D/3D art style. It's super nostalgic to me, though Moonbeam is nothing like old Resident Evil or Final Fantasy games, the call to render things in 3D to make them into 2D assets is too real to ignore. Once I'm done with this (admittedly very messy) animation it'll be time to model the collectible art, make the intro sequence, and a few other FMVs! 
                     <br /><br />
                     <img src="img/dec4-3.png"> <img src="img/dec4-2.png"> <img src="img/dec4-1.png">
@@ -244,11 +247,11 @@
                 <p>Adventures in 3D Modeling!</p>
                 <p style="margin-top: 15px;">
                   For the past two weeks I've been teaching myself how to use blender. Why, you might ask? I'm asking myself the same thing. 
-                    <br />
+                    <br /><br />
                     Blender. Is. Terrifying.
-                    <br />
+                    <br /><br />
                     Have you ever played a game with an impossibly deep 3D map? I'm talking like… checking out the depths of the ocean in Bladefist Bay or off the Echo Isles in Vanilla WOW. Places you're not supposed to explore. But if you're like me and you swim a bit further out to farm just one more dumb lobster monster and you get a glimpse of how far the coastline goes down... It was fathoms and fathoms in comparison to my little troll (but for me, only a few inches on my screen, right?) Used to fill me with literal dread. Once I was safely back on good old comprehendable sized land, I would have to tell myself “It's not real, Wimbles.” and reroute my anxiety.
-                    <br />
+                    <br /><br />
                     Well, my first few days ever touching a 3D art program turned out to be a constant fight with that part of my brain! The scaling, zooming in or looking at the geometry of meshes from the inside was doing a number on me. This spiral made my head spin!
                     <img src="img/dec3-1.png"> <img src="img/dec3-2.png">
                     <br /><br />
@@ -267,9 +270,9 @@
                 <p>Welcome to the Moonbeam devlog!</p>
                 <p style="margin-top: 15px;">
                     I'm Wimbly, and this is the home base for my solo game project! Moonbeam is fast approaching the alpha stage and (I hope) will be your fave cozy go-to game in the future! Moonbeam’s protagonist, Cosmo is a cute TV headed robot tasked with cleaning up galaxies and rebuilding constellations. Collect stardust and moonbeams to build your own skybox, unlock new characters, customize your UI with special themes, and find your favorite radio stations (and maybe a few secrets!) while drifting through space. 
-                <br />
+                <br /><br />
                     With the main game loop set up, the radio and power ups functional, the save system being implemented… I enter the daunting stage of polishing the art style (no wonder I'm writing devlogs instead!) 
-                <br />
+                <br /><br />
                    Initially I wanted to go for a very Space Age/Googie vibe, with a little Rubber Hose just to make it really 50’s! However… I've grown a little attached to my stand-ins. They SAY make it exist and you can make it look good later, but now I'm just thinking how can I preserve this super clean minimalism while integrating the style I want to go for? I know updating Cosmo from a single dot will go a lot of the way, but I might end up replacing more things than I would like to. I just really like these moonbeams though!! I've got to figure out a way to make it all work together.
                 <br /><br />
 <img src="img/dec1.png">
@@ -301,14 +304,14 @@
         titleRenderer.setClearColor(0x000000, 0);
         
         // Lighting
-        const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
         titleScene.add(ambientLight);
         
-        const mainLight = new THREE.DirectionalLight(0xffffff, 0.5);
+        const mainLight = new THREE.DirectionalLight(0xffffff, 0.6);
         mainLight.position.set(5, 5, 5);
         titleScene.add(mainLight);
         
-        const fillLight = new THREE.DirectionalLight(0x88bbb2, 0.5);
+        const fillLight = new THREE.DirectionalLight(0x88bbb2, 0.6);
         fillLight.position.set(-5, 3, 5);
         titleScene.add(fillLight);
         
