@@ -286,10 +286,10 @@
         titleRenderer.setClearColor(0x000000, 0);
         
         // Lighting - Much brighter to match Blender HDRI
-        const ambientLight = new THREE.AmbientLight(0xffffff, 1.5);
+        const ambientLight = new THREE.AmbientLight(0xffffff, 1.25);
         titleScene.add(ambientLight);
         
-        const mainLight = new THREE.DirectionalLight(0xffffff, 1.2);
+        const mainLight = new THREE.DirectionalLight(0xffffff, 0.8);
         mainLight.position.set(5, 5, 5);
         titleScene.add(mainLight);
         
