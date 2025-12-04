@@ -36,8 +36,8 @@
 
         #title-canvas {
             width: 100%;
-            max-width: 700px;
-            height: 400px;
+            max-width: 800px;
+            height: 500px;
             cursor: grab;
         }
 
@@ -298,15 +298,15 @@
         titleRenderer.setSize(titleCanvas.clientWidth, titleCanvas.clientHeight);
         titleRenderer.setClearColor(0x000000, 0);
         
-        // Lighting - Much brighter to match Blender HDRI
-        const ambientLight = new THREE.AmbientLight(0xffffff, 1.25);
+        // Lighting
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
         titleScene.add(ambientLight);
         
-        const mainLight = new THREE.DirectionalLight(0xffffff, 0.8);
+        const mainLight = new THREE.DirectionalLight(0xffffff, 0.5);
         mainLight.position.set(5, 5, 5);
         titleScene.add(mainLight);
         
-        const fillLight = new THREE.DirectionalLight(0x88bbb2, 0.8);
+        const fillLight = new THREE.DirectionalLight(0x88bbb2, 0.5);
         fillLight.position.set(-5, 3, 5);
         titleScene.add(fillLight);
         
@@ -398,11 +398,11 @@
             requestAnimationFrame(animateTitle);
             
             if (titleModel) {
-                // Smooth rotation interpolation
+                // Rotation interpolation
                 currentRotationY += (targetRotationY - currentRotationY) * 0.1;
                 titleModel.rotation.y = currentRotationY;
                 
-                // Gentle float animation when not dragging
+                // Float
                 if (!isDraggingTitle) {
                     titleModel.position.y = Math.sin(Date.now() * 0.0005) * 0.1;
                 }
@@ -413,7 +413,6 @@
         
         animateTitle();
         
-        // Resize for title
         window.addEventListener('resize', () => {
             const width = titleCanvas.clientWidth;
             const height = titleCanvas.clientHeight;
