@@ -274,11 +274,12 @@
         <div class="back-to-top-arrow">↑</div>
     </div>
 
-    <!-- Three.js and GLTFLoader -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
     
     <script>
+        
+        // Three.js
         const titleCanvas = document.getElementById('title-canvas');
         const titleScene = new THREE.Scene();
         const titleCamera = new THREE.PerspectiveCamera(45, titleCanvas.clientWidth / titleCanvas.clientHeight, 0.1, 1000);
@@ -287,7 +288,7 @@
         titleRenderer.setSize(titleCanvas.clientWidth, titleCanvas.clientHeight);
         titleRenderer.setClearColor(0x000000, 0);
         
-        // Lighting
+        // Lighting - Much brighter to match Blender HDRI
         const ambientLight = new THREE.AmbientLight(0xffffff, 1.5);
         titleScene.add(ambientLight);
         
@@ -306,7 +307,7 @@
         titleCamera.position.z = 5;
         titleCamera.position.y = 0;
         
-        // Load GLB
+        // Load GLB model
         const loader = new THREE.GLTFLoader();
         let titleModel = null;
         let targetRotationY = 0;
@@ -314,7 +315,7 @@
         const maxRotation = Math.PI / 18; // 10 degrees
         
         loader.load(
-            'models/MoonbeamLogo.glb',
+            'models/MoonbeamLogo.glb', 
             function (gltf) {
                 titleModel = gltf.scene;
                 titleScene.add(titleModel);
@@ -324,7 +325,7 @@
                 const center = box.getCenter(new THREE.Vector3());
                 titleModel.position.sub(center);
                 
-            titleModel.scale.set(1, 1, 1);
+                // titleModel.scale.set(1, 1, 1);
             },
             function (xhr) {
                 console.log((xhr.loaded / xhr.total * 100) + '% loaded');
@@ -361,7 +362,7 @@
             isDraggingTitle = false;
         });
         
-        // Touch support for title
+        // Touch support
         let previousTouchX = 0;
         
         titleCanvas.addEventListener('touchstart', (e) => {
