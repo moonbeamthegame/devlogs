@@ -160,9 +160,9 @@
             box-shadow: 0 6px 16px rgba(0, 0, 0, 0.5);
         }
 
-        .back-to-top-arrow {
-            font-size: 32px;
-            color: #d9f5f0;
+        .arrow {
+            height: 32px;
+            width: 32px;
         }
 
         /* Footer */
@@ -187,6 +187,11 @@
         
        /* Media Queries */
        @media (max-width: 768px) {
+
+           img {
+            height: 250px; 
+           }
+           
             .title-container {
             height: 200px;
             }
@@ -202,12 +207,13 @@
                 height: 50px;
             }
 
-            body {
-            background: url('img/mobilebkg.png') no-repeat center center / contain;
+           .arrow {
+            height: 32px;
+            width: 32px;
             }
 
-            .back-to-top-arrow {
-                font-size: 24px;
+            body {
+            background: url('img/mobilebkg.png') no-repeat center center / cover;
             }
         }
     </style>
@@ -230,7 +236,7 @@
                 <p style="margin-top: 15px;">
                     I made that whole last post about 3D art without even getting into the game itself! I've been having a ton of fun modeling this scene (intended as a promo) using a little bit of everything I've been teaching myself. We've got some fun procedural stuff like the pile of capsules at the bottom of the crane machine and the gloopy liquid in the pipes, some done-by-hand animations like Laika’s front paw moving as well as the crane arm hitting the capsule, animating textures moving on the ringed planet, animating emissions/lights on and off, generating noise on the F curve to make Laika bark, a simple bone rig for her wagging antenna... and I even challenged myself to make a slinky and a rolled up scroll of paper!  
                     <br /><br />
-                    This has been a fun learning experience, but I mainly wanted to start modeling so that Moonbeam has a hybrid 2D/3D art style. It's super nostalgic to me, though Moonbeam is nothing like old Resident Evil or Final Fantasy games, the call to render things in 3D to make them into 2D assets is too real to ignore. Once I'm done with this (admittedly very messy) animation it'll be time to model the collectible art, make the intro sequence, and a few other FMVs! 
+                    This has been a fun learning experience, but I mainly wanted to start modeling so that Moonbeam has a hybrid 2D/3D art style. 3D is super nostalgic for me, and you'll see I'm drawing inspo from some of my faves, games like Spyro and deBlob. And, though Moonbeam is nothing like old Resident Evil or Final Fantasy games, the call to render things in 3D to make them into 2D assets is too real to ignore. Once I'm done with this (admittedly very messy) animation it'll be time to model the collectible art, make the intro sequence, and a few other FMVs! 
                     <br /><br />
                     <img src="img/dec4-3.png"> <img src="img/dec4-2.png"> <img src="img/dec4-1.png">
                            </p>
@@ -285,7 +291,7 @@
         2025 Team Moonbeam
     </div>
  <div class="back-to-top" onclick="scrollToTop()">
-        <div class="back-to-top-arrow">↑</div>
+        <div class="back-to-top-arrow"><img src="img/up-arrow.png" class="arrow"></div>
     </div>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
