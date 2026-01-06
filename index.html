@@ -1,10 +1,11 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
-    <title>Moonbeam Devlog</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <title>Moonbeam Devlogs</title>
     <link href="https://fonts.googleapis.com/css2?family=Momo+Trust+Display&display=swap" rel="stylesheet">
     <style>
         * {
@@ -19,8 +20,7 @@
         }
 
         body {
-            background: url('img/bkg.png') no-repeat center center fixed;
-            background-color: #003049;
+            background-color: #000;
             background-size: contain;
             color: #d9f5f0;
             font-family: 'Verdana', sans-serif;
@@ -40,30 +40,28 @@
             pointer-events: none;
         }
 
-        .title-container {
+        .nav-container {
             display: flex;
             align-items: center;
-            justify-content: center;
-            padding: 0 20px;
-            height: 300px;
+            justify-content: flex-start;
+            padding: 0 120px;
+            height: 100vh;
+			max-width: 575px;
             pointer-events: auto;
         }
 
-        #title-canvas {
+        navigation {
             width: 100%;
-            max-width: 900px;
-            height: 500px;
+            max-width: 575px;
+            max-height: 1050px;
             cursor: grab;
         }
 
-        #title-canvas:active {
-            cursor: grabbing;
-        }
         
         .scroll-container {
             position: fixed;
-            top: 480px;
-            left: 0;
+            top: 0;
+            left: 575px;
             right: 0;
             bottom: 0;
             overflow-y: scroll;
@@ -147,7 +145,7 @@
         .read-more-btn {
             margin-top: 15px;
             padding: 10px 24px;
-            background: #0077b6;
+            background: #003049;
             color: #d9f5f0;
             border: 2px solid #d9f5f0;
             border-radius: 6px;
@@ -170,7 +168,7 @@
             right: 40px;
             width: 60px;
             height: 60px;
-            background: #0077b6;
+            background: #003049;
             border: 3px solid #d9f5f0;
             border-radius: 50%;
             display: flex;
@@ -213,53 +211,82 @@
             color: #e8b946;
         }
         
-       /* Media Queries */
+		/* Media Queries *?
        @media (max-width: 768px) {
-           img {
-               height: 250px; 
-           }
-           
-           .title-container {
-               height: 200px;
-           }
+		.fixed-header {
+        position: relative; 
+        height: 100vh;
+		}
     
-           #title-canvas {
-               height: 200px;
-           }
-           
-            .scroll-container {
-            top: 250px;
-            }
-
-           .back-to-top {
-               bottom: 20px;
-               right: 20px;
-               width: 50px;
-               height: 50px;
-           }
-
-           .arrow {
-               height: 32px;
-               width: 32px;
-           }
-
-           body {
-               background: url('img/mobilebkg.png') no-repeat center center fixed;
-               background-size: cover;
-           }
-        }
+		.nav-container {
+        max-width: 100%; 
+        justify-content: center; 
+		}
+    
+		.scroll-container {
+        position: relative; 
+        left: 0; 
+        top: 0; 
+		}
+    
+		.navigation img {
+        max-height: 100vh;
+        width: auto;
+		}
+	}
     </style>
 </head>
 <body>
     <div class="fixed-header">
-        <div class="title-container">
-            <canvas id="title-canvas"></canvas>
+        <div class="nav-container">
+            <div class="navigation">
+			<img src="img/devlogimgmap.png" usemap="#image-map">
+	<map name="image-map">
+    <area target="" alt="Home" title="Home" href="index.html" coords="196,528,252,726" shape="rect">
+    <area target="" alt="About" title="About" href="about.html" coords="422,584,78" shape="circle">
+    <area target="" alt="Characters" title="Characters" href="characters.html" coords="278,458,447,498" shape="rect">
+    <area target="" alt="Extras" title="Extras" href="extras.html" coords="341,392,405,446" shape="rect">
+    <area target="" alt="Contact" title="Contact" href="contact.html" coords="247,508,212,473" shape="rect">
+	</map>	
+			</div>
         </div>
     </div>
 
     <div class="scroll-container" id="scrollContainer">
         
         <div class="content-wrapper">
+		        <div class="devlog-post">
+                <div class="post-header">
+                    <h2 class="post-title">Devlog Updates!</h2>
+                    <div class="post-date">December 19, 2025</div>
+                </div>
+                <div class="post-content truncated" id="post-6-content">
+                    <p style="margin-top: 15px;">
+                        After all those commits editing lights and reuploading glbs… I 86ed that threejs title. And it wasn't the lights or the model or even the fact that threejs uses a Y-up axis. It was so… boring! Listen I know this is just the devlogs so it doesn't NEED to be complicated, but one thing you'll learn about me, I really need everything to have the right vibes! 
+						<br /><br />
+                        So, I finished this super retro asteroid sign post for the game intro and decided right then and there to reoutfit the signs in it to use as navigation here! Just wait until you see the neon flickering, I'm so proud of myself! When I get these sparks behaving (they look okay in the still render, I picked my favorite frame… but the animation still isn't right) I'll replace the navigation with an animated version! 
+						<br /><br />
+                        Speaking of updates, I also rendered a version of all 12 characters for the new characters page! I'm making decent progress, huh?
+						<br /><br />
+						<img src="img/dec19.png">
+                    </p>
+                </div>
+                <button class="read-more-btn" onclick="togglePost('post-6-content', this)">Read More</button>
+            </div>
+			    <div class="devlog-post">
+                <div class="post-header">
+                    <h2 class="post-title">To Three or not to Three</h2>
+                    <div class="post-date">December 16, 2025</div>
+                </div>
+                <div class="post-content truncated" id="post-5-content">
+                    <p style="margin-top: 15px;">
+                        I am considering integrating three.js into the game itself but I had such a HARD TIME getting it right for the logo here on the devlog site so I'm a little afraid to try! This has been my first time working with model imports into three.js and probably half of my commits here were me reuploading the glb and adjusting the lighting which… I'm still not happy with. I literally had the model backwards on the Z axis and, since the back and front of the blue ellipse look the same… for a LONG while I thought it was an issue with how the mesh was joined, something wrong with the material, on and on. What a trial! Yes I know I should have tested it offline first but… okay I’m comfortable with nodejs but everything else I would need to do to get glbs displaying locally is a bit daunting.
+						<br /><br />
+                        Ideally if Moonbeam gets a decent reception, I would love to take these models I'm making and create a 3D version of the game…  I'm not sure if the idea of doing it all in three (or with three and phaser?) is genius or absolutely insane. But for the game itself, more than one minigame is written in threejs (and I will get integrating some of these 3D models soon) and I'm seriously considering using three.js for the whole HUD and projecting the 2D canvas onto a 3D object. In my heart, though, I really want to make a full threejs interactive “hub” where minigames, menus, and the main game are accessed!
+                    </p>
+                </div>
+                <button class="read-more-btn" onclick="togglePost('post-5-content', this)">Read More</button>
+            </div>
                 <div class="devlog-post">
                 <div class="post-header">
                     <h2 class="post-title">From 2D to 3D</h2>
@@ -348,156 +375,8 @@
         <div class="back-to-top-arrow"><img src="img/up-arrow.png" class="arrow"></div>
     </div>
     
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/RGBELoader.js"></script>
-    
     <script>
-        // Three.js
-        const titleCanvas = document.getElementById('title-canvas');
-        const titleScene = new THREE.Scene();
-        const titleCamera = new THREE.PerspectiveCamera(45, titleCanvas.clientWidth / titleCanvas.clientHeight, 0.1, 1000);
-        const titleRenderer = new THREE.WebGLRenderer({ canvas: titleCanvas, alpha: true, antialias: true });
-        
-        titleRenderer.setSize(titleCanvas.clientWidth, titleCanvas.clientHeight);
-        titleRenderer.setClearColor(0x000000, 0);
-        
-        // Lighting
-        const ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
-        titleScene.add(ambientLight);
-        
-        const mainLight = new THREE.DirectionalLight(0xffffff, 0.6);
-        mainLight.position.set(5, 5, 5);
-        titleScene.add(mainLight);
-        
-        const fillLight = new THREE.DirectionalLight(0x88bbb2, 0.6);
-        fillLight.position.set(-5, 3, 5);
-        titleScene.add(fillLight);
-        
-        const backLight = new THREE.DirectionalLight(0x0077b6, 0.6);
-        backLight.position.set(0, -3, -5);
-        titleScene.add(backLight);
-        
-        titleCamera.position.z = 5;
-        titleCamera.position.y = 0;
-
-        // HDRI attempt
-        const pmremGenerator = new THREE.PMREMGenerator(titleRenderer);
-        pmremGenerator.compileEquirectangularShader();
-
-        const rgbeLoader = new THREE.RGBELoader();
-        rgbeLoader.load(
-            'img/forest.exr',
-            function(texture) {
-                const envMap = pmremGenerator.fromEquirectangular(texture).texture;
-                titleScene.environment = envMap;
-                texture.dispose();
-                pmremGenerator.dispose();
-            },
-            undefined,
-            function(error) {
-                console.error('Error loading HDRI:', error);
-            }
-        );
-        
-        // Load GLB model
-        const loader = new THREE.GLTFLoader();
-        let titleModel = null;
-        let targetRotationY = 0;
-        let currentRotationY = 0;
-        const maxRotation = Math.PI / 18;
-        
-        loader.load(
-            'models/MoonbeamLogo.glb', 
-            function (gltf) {
-                titleModel = gltf.scene;
-                titleScene.add(titleModel);
-                
-                const box = new THREE.Box3().setFromObject(titleModel);
-                const center = box.getCenter(new THREE.Vector3());
-                titleModel.position.sub(center);
-            },
-            function (xhr) {
-                console.log((xhr.loaded / xhr.total * 100) + '% loaded');
-            },
-            function (error) {
-                console.error('Error loading model:', error);
-            }
-        );
-        
-        // Mouse interaction
-        let isDraggingTitle = false;
-        let previousMouseX = 0;
-        
-        titleCanvas.addEventListener('mousedown', (e) => {
-            isDraggingTitle = true;
-            previousMouseX = e.clientX;
-        });
-        
-        titleCanvas.addEventListener('mousemove', (e) => {
-            if (isDraggingTitle && titleModel) {
-                const deltaX = e.clientX - previousMouseX;
-                targetRotationY += deltaX * 0.01;
-                targetRotationY = Math.max(-maxRotation, Math.min(maxRotation, targetRotationY));
-                previousMouseX = e.clientX;
-            }
-        });
-        
-        titleCanvas.addEventListener('mouseup', () => {
-            isDraggingTitle = false;
-        });
-        
-        titleCanvas.addEventListener('mouseleave', () => {
-            isDraggingTitle = false;
-        });
-        
-        // Touch support
-        let previousTouchX = 0;
-        
-        titleCanvas.addEventListener('touchstart', (e) => {
-            isDraggingTitle = true;
-            previousTouchX = e.touches[0].clientX;
-        });
-        
-        titleCanvas.addEventListener('touchmove', (e) => {
-            if (isDraggingTitle && titleModel) {
-                const deltaX = e.touches[0].clientX - previousTouchX;
-                targetRotationY += deltaX * 0.01;
-                targetRotationY = Math.max(-maxRotation, Math.min(maxRotation, targetRotationY));
-                previousTouchX = e.touches[0].clientX;
-            }
-        });
-        
-        titleCanvas.addEventListener('touchend', () => {
-            isDraggingTitle = false;
-        });
-        
-        // Animation loop
-        function animateTitle() {
-            requestAnimationFrame(animateTitle);
-            
-            if (titleModel) {
-                currentRotationY += (targetRotationY - currentRotationY) * 0.1;
-                titleModel.rotation.y = currentRotationY;
-                
-                if (!isDraggingTitle) {
-                    titleModel.position.y = Math.sin(Date.now() * 0.0005) * 0.1;
-                }
-            }
-            
-            titleRenderer.render(titleScene, titleCamera);
-        }
-        
-        animateTitle();
-        
-        window.addEventListener('resize', () => {
-            const width = titleCanvas.clientWidth;
-            const height = titleCanvas.clientHeight;
-            titleCamera.aspect = width / height;
-            titleCamera.updateProjectionMatrix();
-            titleRenderer.setSize(width, height);
-        });
-        
+          
         // Post expansion
         function togglePost(contentId, button) {
             const content = document.getElementById(contentId);
